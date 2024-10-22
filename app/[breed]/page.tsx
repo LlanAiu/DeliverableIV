@@ -1,5 +1,8 @@
 
 
-export default function Page({params} : {params: {breed: string}}){
-    return <div>This will be a page about {params.breed}s</div>;
+export default async function Page({params} : {params: {breed: string}}){
+
+    const breed = (await params).breed;
+
+    return <div>This will be a page about {breed}s</div>;
 }
