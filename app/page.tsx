@@ -1,14 +1,20 @@
 import Link from 'next/link';
-import { Display } from './[breed]/breedDisplay';
+import { Display } from './dogs/[breed]/breedDisplay';
 
 
-export default function Home() {
+export default async function Home() {
+
   const breeds = [
-    {displayName: 'German Shepherds', urlName: 'german-shepherd', src: '/german-shepherd.jpg'},
+    {displayName: 'Sheepdogs', urlName: 'sheepdog', src: '/german-shepherd.jpg'},
     {displayName: 'Bulldogs', urlName: 'bulldog', src: '/bulldog.jpg'},
     {displayName: 'Beagles', urlName: 'beagle', src: '/beagle.jpg'},
-    {displayName: 'Siberian Huskies', urlName: 'siberian-husky', src: '/siberian-husky.jpg'}
+    {displayName: 'Huskies', urlName: 'husky', src: '/siberian-husky.jpg'}
   ];
+
+  const response = await fetch("https://dog.ceo/api/breeds/list/all");
+    const breedList = await response.json();
+
+    console.log(Object.keys(breedList.message));
   
   return (
     <div>
@@ -18,7 +24,7 @@ export default function Home() {
       </div>
       <div className='grid grid-cols-2 grid-rows-2 w-max m-auto content-center'>
         {breeds.map((breed) => (
-          <Link href={`./${breed.urlName}`} key={breed.displayName}>
+          <Link href={`./dogs/${breed.urlName}`} key={breed.displayName}>
             <Display breed={breed.displayName} src={breed.src}/>
           </Link>
         ))}
